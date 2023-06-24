@@ -1,0 +1,15 @@
+.vscode
+.idea
+node_modules
+mp3
+videos
+*.mp4
+*.mp3
+*.wav
+*.ogg
+*.m4a
+*.mpg
+*.mpeg
+*.avi
+*.mov
+*.webm
