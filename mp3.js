@@ -40,7 +40,7 @@ async function downloadMP3(url) {
       fileName = title
     }
     fileName = fileName
-      .replace(/[\s-+|]+/g, '_')
+      .replace(/[\s-+|.]+/g, '_')
       .replace(/_+/g, '_')
 
     let folderName

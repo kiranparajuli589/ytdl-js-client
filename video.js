@@ -19,7 +19,7 @@ if (!ytdl.validateURL(ref)) {
 ytdl.getInfo(ref).then(info => {
   let videoTitle = info.videoDetails.title;
   videoTitle = videoTitle
-    .replace(/[\s-+|]+/g, '_')
+    .replace(/[\s-+|.]+/g, '_')
     .replace(/_+/g, '_')
 
   const outputFormat = ytdl.chooseFormat(info.formats, { quality: 'highestvideo' });
@@ -111,36 +111,12 @@ ytdl.getInfo(ref).then(info => {
       'pipe', 'pipe', 'pipe',
     ],
   });
+
   ffmpegProcess.on('close', () => {
     process.stdout.write('\n\n\n\n');
     clearInterval(progressBarHandle);
-
-    // perform post compression
-    const compress = prompt("Do you wish to compress the video for smaller size?" +
-      "\nEnter (y|Y|yes) for 'yes' and any other for 'no': ")
-
-    if (['y', 'yes'].includes(compress.toLocaleLowerCase().trim())) {
-      // compress using ffmpeg
-      const compressOutputFilePath = `${folderName}/${videoTitle}_compressed.${outputFormat.container}`;
-      const compressFfmpegProcess = cp.spawn(ffmpeg, [
-        '-i', outputFilePath,
-        '-vcodec', 'libx264',
-        '-crf', '32',
-        compressOutputFilePath,
-      ]);
-
-      compressFfmpegProcess.on(
-        'close', () => {
-          process.stdout.write('\n\n\n\n');
-          console.log('\nVideo compressed successfully!!!');
-          console.log(`Video stored successfully hera at: ${compressOutputFilePath}`);
-          fs.unlinkSync(outputFilePath);
-        }
-      );
-    } else {
-      console.log('\nVideo downloaded successfully!!!');
-      console.log(`Video stored successfully hera at: ${outputFilePath}`);
-    }
+    console.log('\nVideo downloaded successfully!!!');
+    console.log(`Video stored successfully hera at: ${outputFilePath}`);
   });
 
   // Link streams
