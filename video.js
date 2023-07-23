@@ -116,7 +116,7 @@ ytdl.getInfo(ref).then(info => {
     process.stdout.write('\n\n\n\n');
     clearInterval(progressBarHandle);
     console.log('\nVideo downloaded successfully!!!');
-    console.log(`Video stored successfully hera at: ${outputFilePath}`);
+    console.log(`Video stored successfully at: ${outputFilePath}`);
   });
 
   // Link streams
